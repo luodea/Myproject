@@ -1,0 +1,41 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.luodea</groupId>
+
+	<artifactId>MyProject</artifactId>
+
+	<version>0.0.1-SNAPSHOT</version>
+
+	<packaging>war</packaging>
+
+    <!-- 定义基本属性 -->
+	<properties>
+		<spring-version>5.0.5.RELEASE</spring-version>
+	</properties>
+
+
+	<dependencies>
+
+		<!-- 引入spring 核心 jar包 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring-version}</version>
+		</dependency>
+		
+		<!--引入spring webmvc jar包  -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring-version}</version>
+		</dependency>
+
+
+	</dependencies>
+
+
+
+</project>
