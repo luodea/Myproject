@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="300">
+    <!-- 属性配置 -->
+	<properties>
+		<property name="LOG_HOME">E:/log</property>
+		<property name="FILE_NAME">tim</property>
+	</properties>
+	<!-- 输出文件 -->
+	<Appenders>
+		<Console name="Console"  target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg %n" />
+		</Console>
+        
+        <!-- 输出info界级别到文件 -->
+		<RollingRandomAccessFile name="InfoFile"
+			fileName="${LOG_HOME}/info.log"
+			filePattern="${LOG_HOME}/$${date:yyyy-MM}/info-%d{yyyy-MM-dd HH-mm}-%i.log">
+			<Filters>
+				<ThresholdFilter level="warn" onMatch="DENY"
+					onMismatch="NEUTRAL" />
+				<ThresholdFilter level="info" onMatch="ACCEPT"
+					onMismatch="DENY" />
+			</Filters>
+			<PatternLayout
+				pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" />
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="20" />
+		</RollingRandomAccessFile>
+
+		<RollingRandomAccessFile name="ErrorFile"
+			fileName="${LOG_HOME}/error.log"
+			filePattern="${LOG_HOME}/$${date:yyyy-MM}/error-%d{yyyy-MM-dd HH-mm}-%i.log">
+			<Filters>
+				<ThresholdFilter level="fatal" onMatch="DENY"
+					onMismatch="NEUTRAL" />
+				<ThresholdFilter level="error" onMatch="ACCEPT"
+					onMismatch="DENY" />
+			</Filters>
+			
+			<PatternLayout
+				pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" />
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="20" />
+		</RollingRandomAccessFile>
+
+		<RollingRandomAccessFile name="FatalFile"
+			fileName="${LOG_HOME}/fatal.log"
+			filePattern="${LOG_HOME}/$${date:yyyy-MM}/fatal-%d{yyyy-MM-dd HH-mm}-%i.log">
+			<Filters>
+				<ThresholdFilter level="fatal" onMatch="ACCEPT"
+					onMismatch="DENY" />
+			</Filters>
+			<PatternLayout
+				pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" />
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="20" />
+		</RollingRandomAccessFile>
+		
+		<NoSql name="databaseAppender">  
+		
+            <MongoDb databaseName="admin" collectionName="myprojectLogs"  
+                server="127.0.0.1" port="27017" 
+                userName="root" password="123456"/>  
+        </NoSql>  
+
+	</Appenders>
+	
+	<Loggers>
+		
+		<Root level="info">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="databaseAppender" />  
+            <AppenderRef ref="InfoFile" />
+			<AppenderRef ref="ErrorFile" />
+			<AppenderRef ref="FatalFile" />
+		</Root>
+		
+	</Loggers>
+</Configuration>  
+
