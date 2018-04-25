@@ -16,10 +16,13 @@
 		<spring-version>5.0.5.RELEASE</spring-version>
 		<log4j-version>2.11.0</log4j-version>
 		<mongodb-version>3.6.3</mongodb-version>
+		<aspect-version>1.9.0</aspect-version>
 	</properties>
 
 
 	<dependencies>
+
+		<!--引入 spring jar 开始 -->
 
 		<!-- 引入spring 核心 jar包 -->
 		<dependency>
@@ -28,12 +31,44 @@
 			<version>${spring-version}</version>
 		</dependency>
 
-		<!--引入spring webmvc jar包 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${spring-version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring-version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>${spring-version}</version>
+		</dependency>
+		<!--引入 spring jar 结束 -->
+
+		<!-- 引入aspectj jar 开始 -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>${aspect-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${aspect-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjtools</artifactId>
+			<version>${aspect-version}</version>
+		</dependency>
+		<!-- 引入aspectj jar 开始 -->
 
 		<!-- 引入日志 jar开始 -->
 		<dependency>
@@ -54,7 +89,9 @@
 			<version>2.5</version>
 		</dependency>
 
-		<!-- 引入MongoDB -->
+		<!-- 引入日志 jar结束 -->
+
+		<!-- 引入MongoDB jar 开始 -->
 		<dependency>
 			<groupId>org.mongodb</groupId>
 			<artifactId>mongodb-driver</artifactId>
@@ -66,6 +103,55 @@
 			<artifactId>mongo-java-driver</artifactId>
 			<version>${mongodb-version}</version>
 		</dependency>
+
+		<!-- 引入MongoDB jar 结束 -->
+
+
+		<!-- freemarkerjar -->
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>2.3.28</version>
+		</dependency>
+
+		<!--引入 JSON 处理工具包 开始 -->
+		<!-- 阿里巴巴Json处理jar -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.47</version>
+		</dependency>
+
+
+		<!-- gooogel Json处理jar -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.8.2</version>
+		</dependency>
+
+		<!-- jackson Json处理jar 核心 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.9.5</version>
+		</dependency>
+
+		<!-- jackson Json处理jar 数据绑定 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.5</version>
+		</dependency>
+
+
+		<!-- jackson Json处理jar 数据封装 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.9.4</version>
+		</dependency>
+		<!--引入 JSON 处理工具包 结束 -->
 
 	</dependencies>
 

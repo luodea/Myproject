@@ -16,12 +16,152 @@
 	<context:component-scan
 		base-package="com.controller" />
 
-	<!-- 配置视图解析器 -->
+	<!-- 启用springMVC -->
+	<mvc:annotation-driven />
+
+	<!-- 配置freemarker模板路径 -->
 	<bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="suffix" value=".jsp" />
-		<property name="prefix" value="/WEB-INF/" />
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPath"
+			value="/WEB-INF/template/" />
+		<property name="defaultEncoding" value="UTF-8"></property>
+		<property name="freemarkerSettings">
+			<props>
+				<prop key="template_update_delay">1</prop>
+				<prop key="locale">zh_CN</prop>
+				<prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop><!-- 时间格式化 -->
+				<prop key="date_format">yyyy-MM-dd</prop><!-- 日期格式化 -->
+				<prop key="number_format">#.##</prop><!-- 数字格式化 -->
+			</props>
+		</property>
 	</bean>
+
+	<!-- 配置freemarker视图解析器 -->
+	<bean
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="prefix" value="" />
+		<property name="suffix" value=".html" />
+		<property name="cache" value="true" />
+		<property name="contentType" value="text/html;charset=UTF-8" />
+		<property name="allowRequestOverride" value="true" />
+		<property name="allowSessionOverride" value="true" />
+		<property name="exposeSpringMacroHelpers" value="true" />
+		<property name="exposeRequestAttributes" value="true" />
+		<property name="exposeSessionAttributes" value="true" />
+		<property name="requestContextAttribute" value="request" />
+	</bean>
+
+
+	<!-- 配置静态资源 -->
+	<mvc:resources location="/resource/"
+		mapping="/resource/**" />
+
+	<!-- 配置拦截器 -->
+	<!-- <mvc:interceptors> <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" 
+		/> <mvc:interceptor> <mvc:mapping path="/**" /> <mvc:exclude-mapping path="/login" 
+		/> <bean class="com.common.Myintercept" /> </mvc:interceptor> </mvc:interceptors> -->
+
+
+	<!-- 第一种返回JSON或string配置 （只需要在控制器“controller”上添加@Responsebody注解即可） -->
+	<!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"> 
+		配置消息结果转换 <property name="messageConverters"> <list> 配置返回String类型，该配置必须放在JSON配置前面 
+		<ref bean="stringHttpMessageConverter" /> 配置返回JSON类型 fastJson <ref bean="fastJsonHttpMessageConverter" 
+		/> 配置返回JSON类型 jackJson <ref bean="jacksonHttpMessageConverter" /> </list> 
+		</property> </bean> -->
+
+	<!-- 第二种返回JSON或string配置 （只需要在控制器“controller”上添加@Responsebody注解即可） -->
+	<mvc:annotation-driven>
+		<mvc:message-converters>
+			<ref bean="stringHttpMessageConverter" />
+			<!-- <ref bean="fastJsonHttpMessageConverter" /> -->
+			<ref bean="jacksonHttpMessageConverter" />
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+
+
+	<!-- 返回String 消息转化器 -->
+	<bean id="stringHttpMessageConverter"
+		class="org.springframework.http.converter.StringHttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/html;charset=utf-8</value>
+				<value>application/json;charset=utf-8</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 配置返回JSON类型 fastJson 消息转化器 -->
+	<bean id="fastJsonHttpMessageConverter"
+		class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4">
+		<property name="fastJsonConfig">
+			<bean class="com.alibaba.fastjson.support.config.FastJsonConfig">
+				<property name="dateFormat" value="yyyy-MM-dd HH:mm:ss" />
+				<property name="charset" value="utf-8" />
+				<property name="serializerFeatures">
+					<list>
+						<!--此配置用于将Date类型转化为dateFormat对应的格式 -->
+						<value>WriteDateUseDateFormat</value>
+						<!-- 输出key时是否使用双引号 -->
+						<!-- <value>QuoteFieldNames</value> -->
+						<!-- 是否输出值为null的字段 -->
+						<value>WriteMapNullValue</value>
+						<!-- 数值字段如果为null,输出为0,而非null -->
+						<!-- <value>WriteNullNumberAsZero</value> -->
+						<!-- List字段如果为null,输出为[],而非null -->
+						<!-- <value>WriteNullListAsEmpty</value> -->
+						<!-- 字符类型字段如果为null,输出为"",而非null -->
+						<!-- <value>WriteNullStringAsEmpty</value> -->
+						<!-- Boolean字段如果为null,输出为false,而非null -->
+						<!-- <value>WriteNullBooleanAsFalse</value> -->
+						<!-- null String不输出 -->
+						<!-- <value>WriteNullStringAsEmpty</value> -->
+						<!-- null String也要输出 -->
+						<!-- <value>WriteMapNullValue</value> -->
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/html;charset=utf-8</value>
+				<value>application/json;charset=utf-8</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 配置返回JSON类型 Jackson 消息转化器 -->
+	<bean id="jacksonHttpMessageConverter"
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<!-- 数据映射配置 -->
+		<property name="objectMapper">
+			<bean class="com.fasterxml.jackson.databind.ObjectMapper">
+				<property name="dateFormat">
+					<bean class="java.text.SimpleDateFormat">
+						<constructor-arg type="java.lang.String"
+							value="yyyy-MM-dd HH:mm:ss" />
+					</bean>
+				</property>
+				<!-- 过滤掉值为null的 属性 -->
+				<!-- <property name="serializationInclusion">
+					注入枚举类型
+					<value
+						type="com.fasterxml.jackson.annotation.JsonInclude.Include">NON_NULL</value>
+				</property> -->
+
+			</bean>
+		</property>
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/html;chartset=utf-8</value>
+				<value>application/json;chartset=utf-8</value>
+			</list>
+		</property>
+	</bean>
+
+
+
+
 
 
 </beans>

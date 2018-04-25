@@ -4,11 +4,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="resource/javascript/jquery-2.1.0.js"></script>
+
 <title>Insert title here</title>
 </head>
 <body>
 
-<h1> this is Home Page</h1>
+<h1>this is Home Page</h1>
 
 </body>
 </html>
