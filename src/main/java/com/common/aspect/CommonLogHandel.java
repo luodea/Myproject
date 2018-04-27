@@ -1,14 +1,16 @@
 package com.common.aspect;
 
-import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.util.StopWatch;
 
-@Aspect
+import com.uitel.LogUtils;
+
 @Component
+@Aspect
 public class CommonLogHandel {
 
     /**
@@ -16,17 +18,40 @@ public class CommonLogHandel {
      * @author luodea 
      * @date 2018年4月25日
      */
-    @Pointcut("execution(public * *(..))")
-    public void controllerAspect() {
+    @Pointcut("@annotation(org.springframework.web.bind.annotation.RequestMapping)")
+    public void pointcut() {
 	System.out.println("注册请求控制器为切点。。。。。。。。。。。。。。。。。");
     }
-    
-    
-    @After("controllerAspect()")
-    public void after(JoinPoint joinPoint) {
-	System.out.println("请求控制器切点之后。。。。。。。。。。。。。。。。。");
+
+
+    /**
+     * 
+     * @Description:   日志记录逻辑
+     * @param joinPoin
+     * @return
+     * @author luodea 
+     * @date 2018年4月27日
+     */
+    @Around("pointcut()")
+    public Object around(ProceedingJoinPoint joinPoin) {
+	try {
+	    //执行目标方法之前逻辑
+	    StopWatch stopwatch = new StopWatch();
+	    stopwatch.start();
+	    //执行目标方法
+	    Object result =  joinPoin.proceed();
+	    //执行目标方法之后
+	    stopwatch.stop();
+	    new LogUtils().recordeLog(joinPoin, stopwatch); 
+	    return result;
+	} catch (Throwable e) {
+	    e.printStackTrace();
+	}
+
+	return null;
+
     }
-    
-    
-    
+
+
+
 }
