@@ -1,36 +1,23 @@
 package com.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.common.baseEntity.BaseEntity;
 
 @Entity
 @Table(name="person")
-public class Person {
+public class Person extends BaseEntity{
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private int id;
+
 
     private String name;
-
-    private Integer age;
-
+    private int age;
     private String heigth;
-
     private String weigth;
 
-
-    public int getId() {
-	return id;
-    }
-
-    public void setId(int id) {
-	this.id = id;
-    }
-
+    @Column(length=20)
     public String getName() {
 	return name;
     }
@@ -38,15 +25,15 @@ public class Person {
     public void setName(String name) {
 	this.name = name;
     }
-
-    public Integer getAge() {
+    @Column(length=10)
+    public int getAge() {
 	return age;
     }
 
-    public void setAge(Integer age) {
+    public void setAge(int age) {
 	this.age = age;
     }
-
+    @Column(length=20)
     public String getHeigth() {
 	return heigth;
     }
@@ -54,7 +41,7 @@ public class Person {
     public void setHeigth(String heigth) {
 	this.heigth = heigth;
     }
-
+    @Column(length=20)
     public String getWeigth() {
 	return weigth;
     }

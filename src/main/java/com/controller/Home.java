@@ -11,21 +11,26 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.common.basedao.interf.BaseDao;
 import com.entities.Person;
 
 @Controller
 public class Home {
 
     private static final Logger logger = LogManager.getLogger(Home.class);
-
+	
     private final String USERNAME = "luodea";
 
     private final String PASSWORD = "123456";
+    
+    @Autowired
+    private BaseDao<Person> dao;
 
 
 
@@ -63,15 +68,7 @@ public class Home {
     @RequestMapping("/getJsonData")
     @ResponseBody
     public Person getJsonData() {
-	List<Person> list = new ArrayList<Person>();
-	Person person = new Person();
-
-//	person.setAge(102);
-	person.setName("ÂÞµÂ°¡");
-//	person.setWeigth("55kg");
-	person.setHeigth("166cm");
-	list.add(person);
-	return person;
+	return dao.findById(Person.class, 1);	
     }
 
     @RequestMapping("/login")

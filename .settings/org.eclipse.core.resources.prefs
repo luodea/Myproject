@@ -1,2 +1,3 @@
 eclipse.preferences.version=1
+encoding//src/main/resources/hibernate.properties=UTF-8
 encoding//src/main/resources/properties/properties.properties=UTF-8
