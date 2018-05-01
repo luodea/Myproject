@@ -12,7 +12,7 @@ public class Person extends BaseEntity{
 
 
 
-    private String name;
+	private String name;
     private int age;
     private String heigth;
     private String weigth;
@@ -33,6 +33,7 @@ public class Person extends BaseEntity{
     public void setAge(int age) {
 	this.age = age;
     }
+    
     @Column(length=20)
     public String getHeigth() {
 	return heigth;

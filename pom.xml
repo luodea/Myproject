@@ -56,6 +56,15 @@
 			<version>${spring-version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>2.0.6.RELEASE</version>
+		</dependency>
+
+
+
+
 		<!--引入 spring jar 结束 -->
 
 		<!-- 引入aspectj jar 开始 -->
@@ -204,13 +213,63 @@
 			<artifactId>ehcache</artifactId>
 			<version>3.5.2</version>
 		</dependency>
+
+		<!--ehcache依赖slf4j -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.7</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.mysema.querydsl/querydsl-jpa -->
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-jpa</artifactId>
+			<version>3.7.4</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.mysema.querydsl/querydsl-apt -->
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-apt</artifactId>
+			<version>3.7.4</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.mysema.querydsl/querydsl-core -->
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-core</artifactId>
+			<version>3.7.4</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.mysema.querydsl/querydsl-sql -->
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-sql</artifactId>
+			<version>3.7.4</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.mysema.querydsl/querydsl-mongodb -->
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-mongodb</artifactId>
+			<version>3.7.4</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
+<dependency>
+    <groupId>joda-time</groupId>
+    <artifactId>joda-time</artifactId>
+    <version>2.3</version>
+</dependency>
 		
-		<!--ehcache依赖slf4j-->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.7</version>
-        </dependency>
+
 
 	</dependencies>
 
@@ -224,7 +283,12 @@
 				<version>2.12.3</version>
 			</dependency>
 		</dependencies>
+
+
 	</dependencyManagement>
+
+
+
 
 
 </project>
